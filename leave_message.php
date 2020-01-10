@@ -13,7 +13,7 @@ session_start();
 ?>
 
 <div id="topunit">
-    <h1>TEXT TRANSFORMATION & ANALYSIS TOOL</h1>
+    <h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
 </div>
 
 <div id="rightunit">
@@ -28,10 +28,10 @@ session_start();
         <h2>Zostaw wiadomość:</h2>
 
             <form action="" method="post">
-                Your Name : <input type="text" name="name"><br/><br/>
-                Your Email: <input type="text" name="email"><br/><br/>
-                Message:<br><textarea rows="5" name="message" cols="30"></textarea><br/><br/>
-                <input type="submit" name="submit" value="Submit">
+                Twoje imię : <input type="text" name="name"><br/><br/>
+                Twój e-mail: <input type="text" name="email"><br/><br/>
+                Wiadomość:<br><textarea rows="5" name="message" cols="30"></textarea><br/><br/>
+                <input type="submit" name="submit" value="Wyślij">
             </form>
             <?php
             if(isset($_POST['submit'])){

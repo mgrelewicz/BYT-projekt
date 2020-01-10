@@ -13,7 +13,7 @@
     ?>
 
 <div id="topunit">
-    <h1>TEXT TRANSFORMATION & ANALYSIS TOOL</h1>
+    <h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
 </div>
 
 <div id="rightunit">
@@ -25,11 +25,11 @@
     <div id="centralunit">
         <center>
             <br/>
-            <h3>Load text file:</h3>
+            <h3>Załaduj plik tekstowy:</h3>
 
 <form action="" method="POST" ENCTYPE="multipart/form-data">
 <input type="file" name="plik"/><br/><br/>
-<input type="submit" value="Załaduj plik"/><br/><br/>
+<input type="submit" value="Prześlij"/><br/><br/>
 </form>
 <textarea>
 <?php
@@ -45,7 +45,9 @@ if (is_uploaded_file($_FILES['plik']['tmp_name'])) {
         if (isset($_FILES['plik']['type'])) {
                 $input = file_get_contents($_FILES['plik']['name']);
                  $_SESSION['input'] = $input;
-                 sleep(2);
+                    file_put_contents('input.txt', $input);
+         //   file_put_contents('input".session_id(). ".txt', $input);
+                 sleep(1);
                  header('Location: index.php');
             }
         }

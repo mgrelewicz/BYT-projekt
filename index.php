@@ -14,11 +14,11 @@
 
     <?php
     session_start();
-    setcookie("nazwa", "wartosc", time() + 60*60*24*1);
+    setcookie('scookie', '', time() + 360);
     ?>
 
     <div id="topunit">
-        <br/><h1>TEXT TRANSFORMATION & ANALYSIS TOOL</h1>
+        <br/><h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
     </div>
 
     <div id="rightunit">
@@ -28,14 +28,15 @@
         <br/><center><b><a href='file_upload.php'> Załaduj plik z dysku </a></b><br/>
                 <br/><b><a href='file_download.php'> Pobierz plik na dysk </a></b><br/><br/>
             <br/><b><a href='file_preview.php'> Przeglądaj cały plik  </a></b><br/><br/>
-            <br/><b><input style="box-shadow: 0 0 0 transparent; width: 50px;" type="submit" name="reset" value="Resetuj filtry"/></b></center><br/><br/>
+            <br/><b><input style="box-shadow: 0 0 0 transparent; width: 120px; font-size: large;" type="submit" name="reset" value="Resetuj filtry"/></b></center><br/><br/>
             <?php
             if(isset($_POST['reset'])){
                 session_destroy();
-                header('Location: index.php');
+                setcookie('name', '', time() -360);
+                header("Refresh:0");
             }
             ?>
-        <br/><br/><center><i><a  style="font-size: small" href='leave_message.php'> Masz uwagi / sugestie - zostaw wiadomość </a></i></center><br/>
+        <br/><br/><center><i><a  style="font-size: small" href='leave_message.php'> Masz uwagi / sugestie? Zostaw wiadomość </a></i></center><br/>
         </fieldset>
 
     </div id="rightunit">
@@ -47,192 +48,138 @@
             <h3><b>Wybierz polecenie:</b>
             <br/>
             <form name="form1" action="" method="post">
-                <h5><b>Kategoria_nazwa</b></h5>
+                <h5><b>Transformacje</b></h5>
                 <select name="kategoria1:">
-                    <option value="skrypt1">funkcjonalność1</option>
-                    <option value="skrypt2">funkcjonalność2</option>
-                    <option value="skrypt3">funkcjonalność3</option>
-                    <option value="skrypt4">funkcjonalność4</option>
-                    <option value="skrypt5">funkcjonalność5</option>
+                    <option value="">--wybierz opcje--</option>
+                    <option value="skrypt1">Wszystkie litery wielkie</option>
+                    <option value="skrypt2">Wszystkie litery małe</option>
+                    <option value="skrypt4">Pierwsze litery wyrazów wielkie</option>
+                    <option value="skrypt5">Pierwsze litery zdania wielkie</option>
                 </select>
                 <input type="submit" name="kat1" value="Apply" />
             </form>
                 <?php
+           //     $input = $_SESSION['input'];
                 if (isset($_POST['kat1'])) {
-                    if ($_POST['kategoria1'] == "skrypt1") {
-                        echo "komunikat testowy: wybrano skrypt 1";
-                        $script="skrypt1.sh";
-                        $output1 = shell_exec($script);
-                        $output = $output1;
+                    if ($_POST['kategoria1:'] == "skrypt1") {
+           //             $script="skrypt1.sh";
+           //             $output1 = shell_exec($script);
+           //             $output = $output1;
+                        exec('python 1-uppercase.py');
+                      //  $validation = "";
+                      //  exec('python 1-uppercase.py output.txt', $validation);
                     }
-                    else if ($_POST['kategoria1'] == "skrypt2") {
-                        echo "komunikat testowy: wybrano skrypt 2";
-                        $script="skrypt2.sh";
-                        $output2 = shell_exec($script);
-                        $output = $output2;
+                    else if ($_POST['kategoria1:'] == "skrypt2") {
+                        exec('python 2-lowercase.py');
                     }
-                    else if ($_POST['kategoria1'] == "skrypt3") {
-                        echo "komunikat testowy: wybrano skrypt 3";
-                        $script="skrypt3.sh";
-                        $output3 = shell_exec($script);
-                        $output = $output3;
+                    else if ($_POST['kategoria1:'] == "skrypt4") {
+                        exec('python 4-1stwordletter2big.py');
                     }
-                    else if ($_POST['kategoria1'] == "skrypt4") {
-                        echo "komunikat testowy: wybrano skrypt 4";
-                        $script="skrypt4.sh";
-                        $output4 = shell_exec($script);
-                        $output = $output4;
+                    else if ($_POST['kategoria1:'] == "skrypt5") {
+                        exec('python 5-1stsentletter2big.py');
                     }
-                    else if ($_POST['kategoria1'] == "skrypt5") {
-                        echo "komunikat testowy: wybrano skrypt 5";
-                        $script="skrypt5.sh";
-                        $output5 = shell_exec($script);
-                        $output = $output5;
-                    }
-                    $_SESSION['output'] = $output;
+                   // $_SESSION['output'] = $validation;
+           //         header("Refresh:0");
                 }
                 ?>
             <br/>
             <form name="form2" action="" method="post">
-                <h5><b>Kategoria_nazwa</b></h5>
+                <h5><b>Usuwanie znaków</b></h5>
                 <select name="kategoria2:">
-                    <option value="skrypt6">funkcjonalność6</option>
-                    <option value="skrypt7">funkcjonalność7</option>
-                    <option value="skrypt8">funkcjonalność8</option>
-                    <option value="skrypt9">funkcjonalność9</option>
-                    <option value="skrypt10">funkcjonalność10</option>
+                    <option value="">--wybierz opcje--</option>
+                    <option value="skrypt6">Usun tagi</option>
+                    <option value="skrypt7">Usun interpunkcje</option>
+                    <option value="skrypt3">Usun biale znaki</option>
+                    <option value="skrypt8">Usun wszystkie spacje</option>
+                    <option value="skrypt9">Usun tabulatory</option>
+                    <option value="skrypt10">Usun cyfry</option>
                 </select>
                 <input type="submit" name="kat2" value="Apply" />
             </form>
                 <?php
                 if (isset($_POST['kat2'])) {
-                    if ($_POST['kategoria2'] == "skrypt6") {
-                        echo "komunikat testowy: wybrano skrypt 6";
-                        $script="skrypt6.sh";
-                        $output6 = shell_exec($script);
-                        $output = $output6;
+                    if ($_POST['kategoria2:'] == "skrypt6") {
+                        exec('python 6-tagsremove.py');
                     }
-                    else if ($_POST['kategoria2'] == "skrypt7") {
-                        echo "komunikat testowy: wybrano skrypt 7";
-                        $script="skrypt7.sh";
-                        $output7 = shell_exec($script);
-                        $output = $output7;
+                    else if ($_POST['kategoria2:'] == "skrypt7") {
+                        exec('python 7-interpunktremove.py');
                     }
-                    else if ($_POST['kategoria2'] == "skrypt8") {
-                        echo "komunikat testowy: wybrano skrypt 8";
-                        $script="skrypt8.sh";
-                        $output8 = shell_exec($script);
-                        $output = $output8;
+                    else if ($_POST['kategoria2:'] == "skrypt3") {
+                        exec('python 3-whitespacesremove.py');
                     }
-                    else if ($_POST['kategoria2'] == "skrypt9") {
-                        echo "komunikat testowy: wybrano skrypt 9";
-                        $script="skrypt9.sh";
-                        $output9 = shell_exec($script);
-                        $output = $output9;
+                    else if ($_POST['kategoria2:'] == "skrypt8") {
+                        exec('python 13-allspacesremove.py');
                     }
-                    else if ($_POST['kategoria2'] == "skrypt10") {
-                        echo "komunikat testowy: wybrano skrypt 10";
-                        $script="skrypt10.sh";
-                        $output10 = shell_exec($script);
-                        $output = $output10;
+                    else if ($_POST['kategoria2:'] == "skrypt9") {
+                        exec('python 12-tabremove.py');
                     }
-                    $_SESSION['output'] = $output;
+                    else if ($_POST['kategoria2:'] == "skrypt10") {
+                        exec('python 10-digitsremove.py');
+                    }
                 }
                 ?>
             <br/>
             <form name="form3" action="" method="post">
-                <h5><b>Kategoria_nazwa</b></h5>
+                <h5><b>Struktura</b></h5>
                 <select name="kategoria3:">
-                    <option value="skrypt11">funkcjonalność11</option>
-                    <option value="skrypt12">funkcjonalność12</option>
-                    <option value="skrypt13">funkcjonalność13</option>
-                    <option value="skrypt14">funkcjonalność14</option>
-                    <option value="skrypt15">funkcjonalność15</option>
+                    <option value="">--wybierz opcje--</option>
+                    <option value="skrypt11">Ustaw wyrazy w kolumnę</option>
+                    <option value="skrypt12"></option>
+                    <option value="skrypt13"></option>
+                    <option value="skrypt14">Sklej znaki</option>
+                    <option value="skrypt15">Dodaj spacje po kropkach</option>
                 </select>
                 <input type="submit" name="kat3" value="Apply" />
             </form>
                 <?php
                 if (isset($_POST['kat3'])) {
-                    if ($_POST['kategoria3'] == "skrypt11") {
-                        echo "komunikat testowy: wybrano skrypt 11";
-                        $script="skrypt11.sh";
-                        $output11 = shell_exec($script);
-                        $output = $output11;
+                    if ($_POST['kategoria3:'] == "skrypt11") {
+                        exec('python 18-allwordsin1column.py');
                     }
-                    else if ($_POST['kategoria3'] == "skrypt12") {
-                        echo "komunikat testowy: wybrano skrypt 12";
-                        $script="skrypt12.sh";
-                        $output12 = shell_exec($script);
-                        $output = $output12;
+                    else if ($_POST['kategoria3:'] == "skrypt12") {
+                        exec('python ');
                     }
-                    else if ($_POST['kategoria3'] == "skrypt13") {
-                        echo "komunikat testowy: wybrano skrypt 13";
-                        $script="skrypt13.sh";
-                        $output13 = shell_exec($script);
-                        $output = $output13;
+                    else if ($_POST['kategoria3:'] == "skrypt13") {
+                        exec('python ');
                     }
-                    else if ($_POST['kategoria3'] == "skrypt14") {
-                        echo "komunikat testowy: wybrano skrypt 14";
-                        $script="skrypt14.sh";
-                        $output14 = shell_exec($script);
-                        $output = $output14;
+                    else if ($_POST['kategoria3:'] == "skrypt14") {
+                        exec('python 14-textglue.py');
                     }
-                    else if ($_POST['kategoria3'] == "skrypt15") {
-                        echo "komunikat testowy: wybrano skrypt 15";
-                        $script="skrypt15.sh";
-                        $output15 = shell_exec($script);
-                        $output = $output15;
+                    else if ($_POST['kategoria3:'] == "skrypt15") {
+                        exec('python 15-addspaceafterpoint.py');
                     }
-                    $_SESSION['output'] = $output;
                 }
                 ?>
             <br/>
             <form name="form4" action="" method="post">
                 <h5><b>Kategoria_nazwa</b></h5>
                 <select name="kategoria4:">
-                    <option value="skrypt16">funkcjonalność16</option>
-                    <option value="skrypt17">funkcjonalność17</option>
-                    <option value="skrypt18">funkcjonalność18</option>
-                    <option value="skrypt19">funkcjonalność19</option>
-                    <option value="skrypt20">funkcjonalność20</option>
+                    <option value="">--wybierz opcje--</option>
+                    <option value="skrypt16">f--16</option>
+                    <option value="skrypt17">f--17</option>
+                    <option value="skrypt18">f--18</option>
+                    <option value="skrypt19">f--19</option>
+                    <option value="skrypt20">f--20</option>
                 </select>
                 <input type="submit" name="kat4" value="Apply" />
             </form>
                 <?php
                 if (isset($_POST['kat4'])) {
-                    if ($_POST['kategoria4'] == "skrypt16") {
-                        echo "komunikat testowy: wybrano skrypt 16";
-                        $script="skrypt16.sh";
-                        $output16 = shell_exec($script);
-                        $output = $output16;
+                    if ($_POST['kategoria4:'] == "skrypt16") {
+                        exec('python 16-wordremove.py');
                     }
-                    else if ($_POST['kategoria4'] == "skrypt17") {
-                        echo "komunikat testowy: wybrano skrypt 17";
-                        $script="skrypt17.sh";
-                        $output17 = shell_exec($script);
-                        $output = $output17;
+                    else if ($_POST['kategoria4:'] == "skrypt17") {
+                        exec('python 17-wordadd.py');
                     }
-                    else if ($_POST['kategoria4'] == "skrypt18") {
-                        echo "komunikat testowy: wybrano skrypt 18";
-                        $script="skrypt18.sh";
-                        $output18 = shell_exec($script);
-                        $output = $output18;
+                    else if ($_POST['kategoria4:'] == "skrypt18") {
+                        exec('python 11-.py');
                     }
-                    else if ($_POST['kategoria4'] == "skrypt19") {
-                        echo "komunikat testowy: wybrano skrypt 19";
-                        $script="skrypt19.sh";
-                        $output19 = shell_exec($script);
-                        $output = $output19;
+                    else if ($_POST['kategoria4:'] == "skrypt19") {
+                        exec('python 19-.py');
                     }
-                    else if ($_POST['kategoria4'] == "skrypt20") {
-                        echo "komunikat testowy: wybrano skrypt 20";
-                        $script="skrypt20.sh";
-                        $output20 = shell_exec($script);
-                        $output = $output20;
+                    else if ($_POST['kategoria4:'] == "skrypt20") {
+                        exec('python 20-.py');
                     }
-                    $output = $_SESSION['input'];   #tmp : do usuniecia po uzupełnieniu skryptów
-                    $_SESSION['output'] = $output;
-                    header('Location: index.php');
                 }
                 ?>
             <br/><br/><br/></h3>
@@ -249,15 +196,17 @@
             ?>
         <br/>
         <br/><b style="color: orangered; text-shadow: 1px 1px black">Podgląd działania skryptu:</b><br/>
-            <textarea name="text-out">
-        <?php
-        $output = $_SESSION['output'];
+        <textarea><?php
+   //   $output = $_SESSION['output'];
         if (isset($_POST['kat1']) || isset($_POST['kat2']) || isset($_POST['kat3']) || isset($_POST['kat4'])) {
-            echo $output;
+            $output = file_get_contents('output.txt');
+            echo htmlspecialchars($output);
+
+      //      $out = $_SESSION['output'];
+      //      echo htmlspecialchars($out);
         }
-        ?>
-        </textarea>
-                <br/><br/><br/><br/><br/><br/>
+        ?></textarea>
+        <br/><br/><br/><br/><br/><br/>
     </div id="centralunit">
 
     <div id="bottomunit">

@@ -15,7 +15,7 @@ session_start();
 ?>
 
 <div id="topunit">
-    <br/><h1>TEXT TRANSFORMATION & ANALYSIS TOOL</h1>
+    <br/><h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
 </div>
 
 <div id="rightunit">
@@ -29,13 +29,10 @@ session_start();
             <br/>
             <h2>Twój plik z wybranymi filtrami:</h2><br/><br/>
             <center>
-            <textarea name="preview">
-                    <?php
-                    $output = $_SESSION['input'];  # do podmiany
-
-                    echo $output;
-                    ?>
-            </textarea>
+            <textarea name="preview"><?php
+                    $output = file_get_contents('output.txt');
+                    echo htmlspecialchars($output);
+                    ?></textarea>
         </center>
             <br/><br/>
             <br/><a href='file_download.php'> Pobierz plik </a><br/>

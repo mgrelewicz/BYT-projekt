@@ -9,7 +9,7 @@
 <br id="page">
 
 <div id="topunit">
-    <h1>TEXT TRANSFORMATION & ANALYSIS TOOL</h1>
+    <h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
 </div>
 
 <div id="rightunit">
@@ -21,7 +21,7 @@
     <div id="centralunit">
         <center>
         <br/><br/><br/><br/>
-        <h2>  Thank you for your message! <h2/>
+        <h2>  Dziękujemy za Twoją wiadomość! <h2/>
 
         <br/><br/><br/>
         <a href='index.php'> Wróć na stronę główną </a><br><br>

@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<?php
+session_start();
+        if (isset($_COOKIE['scookie'])){
+            echo session_id();
+        }else {
+            header('location: index.php');
+        }
+?>
 <html lang="pl">
 <head>
     <title>Download file</title>
@@ -8,12 +16,8 @@
 <body>
 <br id="page">
 
-    <?php
-    session_start();
-    ?>
-
 <div id="topunit">
-    <br/><h1>TEXT TRANSFORMATION & ANALYSIS TOOL</h1>
+    <br/><h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
 </div>
 
 <div id="rightunit">
@@ -31,17 +35,33 @@
     <br/><br/>
     <FORM action="" method="POST">
         <center>
-            <INPUT name="dwnld" type="submit" value=" Download ">
+            <INPUT style="font-size: x-large" name="dwnld" type="submit" value=" DOWNLOAD ">
             <?php
-            $output = $_SESSION['output'];
+      //      $output = $_SESSION['output'];
+      //      $output =  file_get_contents('output.txt');
             if (isset($_POST['dwnld'])) {
 
-                $file = "outputfile.txt";
-                $fp = fopen($file, "a");
-                flock($fp, 2);
-                fwrite($fp, $output);
-                flock($fp, 3);
-                fclose($fp);
+                $file = 'output.txt';
+          //      header("Content-Description: File Transfer");
+                header("Content-Type: application/octet-stream");
+                header('Content-Disposition: attachment; filename='.basename($file));
+                header('Expires: -1');
+                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                header('Pragma: public');
+                flush();
+                while (ob_get_level()) {
+                    ob_end_clean();
+                }
+                readfile($file);
+                exit();
+
+
+             //   $file = "output.txt";
+             //   $fp = fopen($file, "a");
+             //   flock($fp, 2);
+             //   fwrite($fp, $output);
+             //   flock($fp, 3);
+             //   fclose($fp);
 
             }
             ?>
