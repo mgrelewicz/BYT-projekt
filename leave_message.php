@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<br id="page">
+<div id="page">
 
 <?php
 session_start();
@@ -52,7 +52,7 @@ session_start();
             ?>
         <br/><br/><br/>
         <a href='index.php'> Wróć na stronę główną </a>
-        <br/><br/>
+        <br/>
     </div id="centralunit">
 
     <div id="bottomunit">

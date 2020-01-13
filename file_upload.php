@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<br id="page">
+<div id="page">
 
     <?php
     session_start();
@@ -28,24 +28,23 @@
             <h3>Załaduj plik tekstowy:</h3>
 
 <form action="" method="POST" ENCTYPE="multipart/form-data">
-<input type="file" name="plik"/><br/><br/>
-<input type="submit" value="Prześlij"/><br/><br/>
+<input type="file" name="plik"/><br/><br/><br/>
+<input type="submit" value="Prześlij"/><br/><br/><br/>
 </form>
-<textarea>
 <?php
-$max_rozmiar = 50000;
+$max_rozmiar = 500000;
 if (is_uploaded_file($_FILES['plik']['tmp_name'])) {
     if ($_FILES['plik']['size'] > $max_rozmiar) {
         echo "<br/><br/><br/>";
         echo 'Błąd! Plik jest za duży!';
     } else {
-        echo "<br/><br/><br/>";
-        echo 'Odebrano plik. o nazwie: '.$_FILES['plik']['name'];
-        echo '<br/><br/>';
+ //       echo "<br/><br/><br/>";
+ //       echo 'Odebrano plik. o nazwie: '.$_FILES['plik']['name'];
+ //       echo '<br/><br/>';
         if (isset($_FILES['plik']['type'])) {
-                $input = file_get_contents($_FILES['plik']['name']);
+                $input = file_get_contents($_FILES['plik']['tmp_name']);  //name --> tmp_name //
                  $_SESSION['input'] = $input;
-                    file_put_contents('input.txt', $input);
+         //           file_put_contents('input.txt', $input);
          //   file_put_contents('input".session_id(). ".txt', $input);
                  sleep(1);
                  header('Location: index.php');
@@ -53,7 +52,6 @@ if (is_uploaded_file($_FILES['plik']['tmp_name'])) {
         }
     }
 ?>
- </textarea>
   <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   <a href='index.php'> Wróć na stronę główną </a>
   </center>

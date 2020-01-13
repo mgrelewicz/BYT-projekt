@@ -2,11 +2,11 @@
 <html lang="pl">
 <head>
     <title>Leave the message</title>
-    <link href="style4.css" rel="stylesheet" type="text/css"/>
+    <link href="style/style4.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<br id="page">
+<div id="page">
 
 <div id="topunit">
     <h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>

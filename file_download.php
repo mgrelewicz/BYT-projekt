@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
-        if (isset($_COOKIE['scookie'])){
-            echo session_id();
+        if (isset($_SESSION['output'])){
+            echo " ";
         }else {
             header('location: index.php');
         }
@@ -14,10 +14,10 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<br id="page">
+<div id="page">
 
 <div id="topunit">
-    <br/><h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
+    <h1>NARZĘDZIE DO ANALIZY I TRANSFORMACJI TEKSTU</h1>
 </div>
 
 <div id="rightunit">
@@ -37,39 +37,16 @@ session_start();
         <center>
             <INPUT style="font-size: x-large" name="dwnld" type="submit" value=" DOWNLOAD ">
             <?php
-      //      $output = $_SESSION['output'];
-      //      $output =  file_get_contents('output.txt');
+            $output = $_SESSION['output'];
             if (isset($_POST['dwnld'])) {
-
-                $file = 'output.txt';
-          //      header("Content-Description: File Transfer");
-                header("Content-Type: application/octet-stream");
-                header('Content-Disposition: attachment; filename='.basename($file));
-                header('Expires: -1');
-                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-                header('Pragma: public');
-                flush();
-                while (ob_get_level()) {
-                    ob_end_clean();
-                }
-                readfile($file);
-                exit();
-
-
-             //   $file = "output.txt";
-             //   $fp = fopen($file, "a");
-             //   flock($fp, 2);
-             //   fwrite($fp, $output);
-             //   flock($fp, 3);
-             //   fclose($fp);
-
-            }
+                header('Location: direct-download.php');
+			}
             ?>
         </center>
     </FORM>
 
     <br/><br/><br/><br/><br/>
-    <a href='index.php'> Wróć na stronę główną </a><br/><br/>
+    <a href='index.php'> Wróć na stronę główną </a>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div id="centralunit">
 
